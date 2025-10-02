@@ -1,5 +1,5 @@
 resource "aws_lb" "load_balancer" {
-  name               = "cmtr-m68g13qx-lb"
+  name               = "${var.project_prefix}-lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [data.aws_security_group.lb.id]
@@ -9,7 +9,7 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_lb_target_group" "blue_tg" {
-  name     = "cmtr-m68g13qx-blue-tg"
+  name     = "${var.project_prefix}-blue-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.selected.id
@@ -22,7 +22,7 @@ resource "aws_lb_target_group" "blue_tg" {
 }
 
 resource "aws_lb_target_group" "green_tg" {
-  name     = "cmtr-m68g13qx-green-tg"
+  name     = "${var.project_prefix}-green-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.selected.id
@@ -55,7 +55,7 @@ resource "aws_lb_listener" "http_listener" {
 }
 
 resource "aws_autoscaling_group" "blue_asg" {
-  name                = "cmtr-m68g13qx-blue-asg"
+  name                = "${var.project_prefix}-blue-asg"
   desired_capacity    = 2
   max_size            = 2
   min_size            = 2
@@ -95,7 +95,7 @@ resource "aws_autoscaling_group" "blue_asg" {
 }
 
 resource "aws_autoscaling_group" "green_asg" {
-  name                = "cmtr-m68g13qx-green-asg"
+  name                = "${var.project_prefix}-green-asg"
   desired_capacity    = 2
   max_size            = 2
   min_size            = 2
